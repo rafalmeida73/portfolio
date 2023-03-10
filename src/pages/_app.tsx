@@ -13,7 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     if (typeof window !== 'undefined' && isReady) {
       console.log('isReady', isReady);
-      console.log('window', window?.M);
+      console.log('window', (window as any)?.M);
       const carousel = document.querySelectorAll('.carousel');
       const tooltip = document.querySelectorAll('.tooltipped');
       const changeColor = document?.getElementById?.('color');
