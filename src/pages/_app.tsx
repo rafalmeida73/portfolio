@@ -8,14 +8,14 @@ import Head from 'next/head';
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
-    if (window !== undefined) {
+    if (typeof window !== 'undefined') {
       const carousel = document.querySelectorAll('.carousel');
       const tooltip = document.querySelectorAll('.tooltipped');
       const changeColor = document?.getElementById?.('color');
       if (carousel) {
         (window as any).M.Carousel.init(carousel);
       }
-      if ((window as any)?.M) {
+      if (tooltip) {
         (window as any).M.Tooltip.init(tooltip);
       }
 
