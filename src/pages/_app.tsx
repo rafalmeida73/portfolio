@@ -1,36 +1,29 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import '@/styles/globals.scss';
 import { useEffect } from 'react';
 
 import { NextIntlProvider } from 'next-intl';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 
 export default function App({ Component, pageProps }: AppProps) {
-  const { isReady } = useRouter();
-
-  const runOnClient = (func: () => any) => {
-    if (typeof window !== undefined) {
-      if (window.document.readyState === 'loading') {
-        window.addEventListener('load', func);
-      } else {
-        func();
-      }
-    }
-  };
-
   useEffect(() => {
-    runOnClient(() => {
-      const carousel = document.querySelectorAll('.carousel');
-      const tooltip = document.querySelectorAll('.tooltipped');
-      const changeColor = document?.getElementById?.('color');
-      (window as any).M.Carousel.init(carousel);
-      (window as any).M.Tooltip.init(tooltip);
+    const carousel = document.querySelectorAll('.carousel');
+    const tooltip = document.querySelectorAll('.tooltipped');
+    const changeColor = document?.getElementById?.('color');
 
-      if (changeColor) changeColor.style.display = 'flex';
-    });
-  }, [isReady]);
+    if (changeColor) changeColor.style.display = 'flex';
+
+    return () => {
+      if (carousel) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (window as any).M.Carousel.init(carousel);
+      }
+      if (tooltip) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (window as any).M.Tooltip.init(tooltip);
+      }
+    };
+  }, []);
 
   return (
     <NextIntlProvider messages={pageProps.messages}>
