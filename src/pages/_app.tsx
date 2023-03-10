@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const { isReady } = useRouter();
 
   useEffect(() => {
-    if (isReady) {
+    if (typeof window !== 'undefined' && isReady) {
       console.log('isReady', isReady);
       console.log('window', (window as any)?.M);
       const carousel = document.querySelectorAll('.carousel');
