@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
       if (changeColor) changeColor.style.display = 'flex';
     }
-  }, [isReady]);
+  }, [isReady, typeof window]);
 
   return (
     <NextIntlProvider messages={pageProps.messages}>
