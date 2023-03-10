@@ -11,9 +11,10 @@ export default function App({ Component, pageProps }: AppProps) {
   const { isReady } = useRouter();
 
   useEffect(() => {
-    if ((window as any)?.M !== undefined && isReady) {
+    if (window !== undefined && isReady) {
       console.log('isReady', isReady);
       console.log('window', (window as any)?.M);
+      if (!(window as any)?.M) return;
       const carousel = document.querySelectorAll('.carousel');
       const tooltip = document.querySelectorAll('.tooltipped');
       const changeColor = document?.getElementById?.('color');
@@ -22,7 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
       if (changeColor) changeColor.style.display = 'flex';
     }
-  }, [isReady, typeof window]);
+  }, [isReady]);
 
   return (
     <NextIntlProvider messages={pageProps.messages}>
