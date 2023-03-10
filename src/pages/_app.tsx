@@ -11,21 +11,17 @@ export default function App({ Component, pageProps }: AppProps) {
   const { isReady } = useRouter();
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && isReady) {
-      console.log('isReady', isReady);
-      console.log('window', (window as any)?.M);
-      const carousel = document.querySelectorAll('.carousel');
-      const tooltip = document.querySelectorAll('.tooltipped');
-      const changeColor = document?.getElementById?.('color');
-      if (carousel && (window as any)?.M) {
-        (window as any).M.Carousel.init(carousel);
-      }
-      if (tooltip && (window as any)?.M) {
-        (window as any).M.Tooltip.init(tooltip);
-      }
-
-      if (changeColor) changeColor.style.display = 'flex';
+    const carousel = document.querySelectorAll('.carousel');
+    const tooltip = document.querySelectorAll('.tooltipped');
+    const changeColor = document?.getElementById?.('color');
+    if (carousel && (window as any)?.M) {
+      (window as any).M.Carousel.init(carousel);
     }
+    if (tooltip && (window as any)?.M) {
+      (window as any).M.Tooltip.init(tooltip);
+    }
+
+    if (changeColor) changeColor.style.display = 'flex';
   }, [isReady, typeof window]);
 
   return (
