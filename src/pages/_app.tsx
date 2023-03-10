@@ -10,11 +10,18 @@ import { useRouter } from 'next/router';
 export default function App({ Component, pageProps }: AppProps) {
   const { isReady } = useRouter();
 
+  const runOnClient = (func: () => any) => {
+    if (typeof window !== undefined) {
+      if (window.document.readyState === 'loading') {
+        window.addEventListener('load', func);
+      } else {
+        func();
+      }
+    }
+  };
+
   useEffect(() => {
-    if (window !== undefined && isReady) {
-      console.log('isReady', isReady);
-      console.log('window', (window as any)?.M);
-      if (!(window as any)?.M) return;
+    runOnClient(() => {
       const carousel = document.querySelectorAll('.carousel');
       const tooltip = document.querySelectorAll('.tooltipped');
       const changeColor = document?.getElementById?.('color');
@@ -22,7 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
       (window as any).M.Tooltip.init(tooltip);
 
       if (changeColor) changeColor.style.display = 'flex';
-    }
+    });
   }, [isReady]);
 
   return (
