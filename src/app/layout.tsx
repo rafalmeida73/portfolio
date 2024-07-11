@@ -4,6 +4,7 @@ import '../styles/globals.css';
 import { ColorProvider } from '@/hooks/useColor';
 import { cookies } from 'next/headers';
 import Script from 'next/script';
+export const fetchCache = 'only-cache';
 
 export default async function RootLayout({
   children,
